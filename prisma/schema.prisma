@@ -12,3 +12,53 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+
+model User{
+  id Int @id @default(autoincrement())
+  userName String
+  email String @unique
+  password String
+  accounType Boolean
+  createdAt DateTime
+  accountIsActive Boolean
+
+  order Order[]
+
+  reservation Reservation @relation(fields: [userId], references: [id])
+  userId Int
+
+}
+
+model Order{
+  id Int @id @default(autoincrement())
+  quantity Int
+  fullPrice Int
+  date DateTime
+  status String
+
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+
+  drink Drinks @relation(fields: [drinkId], references: [id])
+  drinkId Int 
+}
+
+model Drinks{
+   id Int @id @default(autoincrement())
+   drinkName String
+   unit String
+   price Int
+
+  order Order[]
+
+} 
+
+model Reservation{
+  id Int @id @default(autoincrement())
+  reservationDate DateTime
+
+ 
+
+  user User[]
+}

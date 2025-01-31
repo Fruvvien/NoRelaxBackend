@@ -26,8 +26,8 @@ model User{
 
   order Order[]
 
-  reservation Reservation @relation(fields: [userId], references: [id])
-  userId Int
+  reservation Reservation? @relation(fields: [reservationId], references: [id])
+  reservationId Int? 
 
 }
 

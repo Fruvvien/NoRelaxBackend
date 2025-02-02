@@ -20,11 +20,12 @@ model User{
   lastName String
   email String @unique
   password String
-  accounType Boolean
-  createdAt DateTime
-  accountIsActive Boolean
+  accounType Boolean @default(false)
+  createdAt DateTime @default(now())
+  accountIsActive Boolean  @default(true)
 
   order Order[]
+  tokens JWTToken[]
 
   reservation Reservation? @relation(fields: [reservationId], references: [id])
   reservationId Int? 
@@ -62,4 +63,12 @@ model Reservation{
  
 
   user User[]
+}
+
+model JWTToken{
+  id Int    @id @default(autoincrement())
+  token String 
+  user User @relation(fields: [userId], references: [id])
+  userId Int
+  createdAt DateTime @default(now())
 }

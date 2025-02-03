@@ -12,6 +12,8 @@ export class LocalStrategy extends PassportStrategy(Strategy){
   constructor(private authService: AuthService){
     super({ usernameField: "email" });  // alap esetben username/jelszó kombinációt fogad el a local passport stratégia ellenőrzés során, emiatt be kell állítani a usernameField-et
                                         // ha email-el akarunk dolgozni!
+
+                                        
   }
 
   validate(email: string, password: string){

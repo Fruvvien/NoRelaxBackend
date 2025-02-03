@@ -4,6 +4,7 @@ import { PrismaService } from 'src/prisma.service';
 import { LoginService } from 'src/login/login.service';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class AuthService {
   constructor(private db: PrismaService, private loginService: LoginService, private jwtService: JwtService){}
@@ -13,9 +14,10 @@ export class AuthService {
   async login(user: any){
          
     try {
+     const payload = { id: user.id, email: user.email };
       const createdToken = await this.db.jWTToken.create({
         data: {
-          token: this.jwtService.sign(user),
+          token:  await this.jwtService.signAsync(payload, {secret : "admin123"}),
           user: { connect: { id: user.id } }
         }
       });
@@ -27,7 +29,6 @@ export class AuthService {
     
   }
 
-  
   async validateUserStrategy(authPlayload: AuthPlayloadDto){
     const findUser = await this.loginService.findOneWithEmail(authPlayload.email)
     if(!findUser){

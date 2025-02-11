@@ -37,9 +37,9 @@ export class AuthController {
 
 
   /**
-   * Check the token of the user
+   * Check the jwt token of the user
    * 
-   * @param req email and password and token of the user
+   * @param req email, password and token of the user
    * @returns 200
    */
   @ApiParam({

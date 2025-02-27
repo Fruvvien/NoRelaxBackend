@@ -17,7 +17,7 @@ export class AuthService {
      const payload = { id: user.id, email: user.email };
       const createdToken = await this.db.jWTToken.create({
         data: {
-          token:  await this.jwtService.signAsync(payload, {secret : "admin123"}),
+          token:  await this.jwtService.signAsync(payload),
           user: { connect: { id: user.id } }
         }
       });

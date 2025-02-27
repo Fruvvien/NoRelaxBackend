@@ -44,11 +44,23 @@ model Order{
 
   drink Drinks @relation(fields: [drinkId], references: [id])
   drinkId Int 
+
+  food Foods @relation(fields: [foodId], references: [id])
+  foodId Int
 }
 
 model Drinks{
    id Int @id @default(autoincrement())
    drinkName String
+   unit String
+   price Int
+
+  order Order[]
+
+} 
+model Foods{
+   id Int @id @default(autoincrement())
+   foodName String
    unit String
    price Int
 

@@ -9,7 +9,7 @@ export class DrinksController {
   constructor(private readonly drinksService: DrinksService) {}
 
   @UseGuards(JwtAuthGuard)
-  @Post()
+  @Post('drinks')
   create(@Body() createDrinkDto: CreateDrinkDto) {
     try {
       return this.drinksService.create(createDrinkDto);
@@ -46,7 +46,7 @@ export class DrinksController {
       return drinkToUpdate;
     } 
     catch {
-      throw new NotFoundException("Nincs ilyen ID-val rendelkező ital, így nem sikerült az adatok frissítése")
+      throw new NotFoundException("Nincs ilyen ID-val rendelkező ital, így sikertelen az adatok frissítése")
     }
   }
 
@@ -58,7 +58,7 @@ export class DrinksController {
       return drinkToRemove;
     } 
     catch {
-      throw new NotFoundException("Nincs ilyen ID-val rendelkező ital, így nem sikerült az adat törlése")
+      throw new NotFoundException("Nincs ilyen ID-val rendelkező ital, így sikertelen az adat törlése")
     }
 
   }

@@ -20,7 +20,6 @@ export class DrinksController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('drinks')
   findAll() {
     return this.drinksService.findAll();

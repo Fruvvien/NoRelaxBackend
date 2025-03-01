@@ -19,7 +19,6 @@ export class FoodsController {
     }
   }
 
-  @UseGuards(JwtAuthGuard)
   @Get('foods')
   findAll() {
     return this.foodsService.findAll();

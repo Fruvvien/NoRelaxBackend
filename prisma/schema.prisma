@@ -34,19 +34,16 @@ model User{
 
 model Order{
   id Int @id @default(autoincrement())
-  quantity Int
-  fullPrice Int
   date DateTime
-  status String
+  status String @default("pending")
+  order Json
+
+  reservation Reservation? @relation(fields: [reservationId], references: [id])
+  reservationId Int? 
 
   user User @relation(fields: [userId], references: [id])
   userId Int
 
-  drink Drinks @relation(fields: [drinkId], references: [id])
-  drinkId Int 
-
-  food Foods @relation(fields: [foodId], references: [id])
-  foodId Int
 }
 
 model Drinks{
@@ -55,7 +52,6 @@ model Drinks{
    unit String
    price Int
 
-  order Order[]
 
 } 
 model Foods{
@@ -64,7 +60,6 @@ model Foods{
    unit String
    price Int
 
-  order Order[]
 
 } 
 
@@ -73,7 +68,7 @@ model Reservation{
   reservationDate DateTime
 
  
-
+  order Order[]
   user User[]
 }
 

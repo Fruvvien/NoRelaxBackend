@@ -26,23 +26,36 @@ model User{
 
   order Order[]
   tokens JWTToken[]
-
-  reservation Reservation? @relation(fields: [reservationId], references: [id])
-  reservationId Int? 
-
 }
 
 model Order{
   id Int @id @default(autoincrement())
-  date DateTime
+  date DateTime @default(now())
+  updated DateTime @updatedAt
   status String @default("pending")
-  order Json
+  fullPrice Int
+
+  orderitem Orderitem[]
 
   reservation Reservation? @relation(fields: [reservationId], references: [id])
   reservationId Int? 
 
   user User @relation(fields: [userId], references: [id])
   userId Int
+
+}
+
+model Orderitem{
+  id Int @id @default(autoincrement())
+  productName String
+  unit String
+  price Int
+  quantity Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  order Order @relation(fields: [orderId], references: [id])
+  orderId Int
 
 }
 
@@ -69,7 +82,6 @@ model Reservation{
 
  
   order Order[]
-  user User[]
 }
 
 model JWTToken{

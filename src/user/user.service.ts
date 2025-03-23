@@ -28,7 +28,16 @@ export class UserService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} user`;
+    try{
+      return this.db.user.findUnique({
+        where: {
+          id: id
+        }
+      });
+    }catch{
+      return false
+    }
+   
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

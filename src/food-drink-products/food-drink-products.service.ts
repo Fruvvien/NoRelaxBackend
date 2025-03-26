@@ -23,14 +23,18 @@ export class FoodDrinkProductsService {
   } */
  
   async findAll(CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
-    const response = await this.db.productGroups.findUnique({
+    const response = await this.db.productGroups.findFirst({
       where:{
-        id: CreateFoodDrinkProductDto.productGroupId
+        groupName: CreateFoodDrinkProductDto.productGroupName
       }
     })
-    if(response.groupName == CreateFoodDrinkProductDto.productGroupName){
-      return this.db.products.findMany();
-    }
+    
+    return this.db.products.findMany({
+      where:{
+        productGroupId : response.id
+      }
+    });
+    
    }
  
    findOne(id: number) {

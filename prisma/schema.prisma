@@ -62,6 +62,23 @@ model Orderitem{
 
 }
 
+model Products{
+  id Int @id @default(autoincrement())
+  productName String
+  unit String
+  price Int
+
+  productGroup ProductGroups @relation(fields: [productGroupId], references: [id])
+  productGroupId Int
+}
+
+model ProductGroups{
+  id Int @id @default(autoincrement())
+  groupName String
+
+  products Products[]
+}
+
 model Drinks{
    id Int @id @default(autoincrement())
    drinkName String

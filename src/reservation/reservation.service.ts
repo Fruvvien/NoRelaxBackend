@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -7,8 +7,8 @@ import { PrismaService } from 'src/prisma.service';
 export class ReservationService {
   constructor(private db: PrismaService){}
 
-  create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+  create(createReservationDto: CreateReservationDto,) {
+    
   }
 
   async findAll() {
@@ -23,9 +23,30 @@ export class ReservationService {
     }) ;
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+  async update(id: number, updateReservationDto: UpdateReservationDto) {
+     
+      return await this.db.reservation.update({
+        where:{
+          id: id
+        },
+        data:{
+          isReserved: updateReservationDto.isReserved,
+          reservationDate: updateReservationDto.reservationDate,
+          user:{
+            connect:{
+              id:  +updateReservationDto.userId
+            }
+          }
+        },
+        include:{
+          user: true
+        }
+        
+      })
+      
   }
+  
+  
 
   remove(id: number) {
     return `This action removes a #${id} reservation`;

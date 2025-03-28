@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { ReservationService } from './reservation.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
@@ -25,9 +25,10 @@ export class ReservationController {
     return this.reservationService.findOne(+id);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
-    return this.reservationService.update(+id, updateReservationDto);
+  @UseGuards(JwtAuthGuard)
+  @Put(':id')
+  async update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
+    return await this.reservationService.update(+id, updateReservationDto);
   }
 
   @Delete(':id')

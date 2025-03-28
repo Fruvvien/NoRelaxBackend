@@ -106,6 +106,23 @@ async function main() {
       });
     }
   } */
+
+
+//reservation
+/* async function main() {
+ for (let index = 1; index <= 5; index++) {
+  await prisma.reservation.create({
+    data:{
+      id: index,
+      reservationDate: new Date()
+    }
+  });
+  
+ }
+  
+  
+}  */
+
 main()
   .then(async () => {
     await prisma.$disconnect()

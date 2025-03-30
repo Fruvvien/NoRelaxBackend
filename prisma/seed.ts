@@ -114,7 +114,8 @@ async function main() {
   await prisma.reservation.create({
     data:{
       id: index,
-      reservationDate: new Date()
+      reservationDate: new Date(),
+      tableNumber: index
     }
   });
   

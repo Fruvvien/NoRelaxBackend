@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {  Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -7,7 +7,22 @@ import { PrismaService } from 'src/prisma.service';
 export class ReservationService {
   constructor(private db: PrismaService){}
 
-  create(createReservationDto: CreateReservationDto,) {
+  async create(createReservationDto: CreateReservationDto) {
+    return await this.db.reservation.create({
+      data:{
+        isReserved: createReservationDto.isReserved,
+        reservationDate: createReservationDto.reservationDate,
+        tableNumber: createReservationDto.tableNumber,
+        user:{
+          connect:{
+            id:  +createReservationDto.userId
+          }
+        }
+      },
+      include:{
+        user: true
+      }
+    })
     
   }
 
@@ -25,7 +40,7 @@ export class ReservationService {
 
   async update(id: number, updateReservationDto: UpdateReservationDto) {
      
-      return await this.db.reservation.update({
+      /* return await this.db.reservation.update({
         where:{
           id: id
         },
@@ -42,7 +57,7 @@ export class ReservationService {
           user: true
         }
         
-      })
+      }) */
       
   }
   

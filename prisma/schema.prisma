@@ -25,8 +25,8 @@ model User{
   accountIsActive Boolean  @default(true)
 
 
-  reservationn Reservation @relation(fields: [reservationId], references: [id])
-  reservationId Int
+  reservationn Reservation? @relation(fields: [reservationId], references: [id])
+  reservationId Int?
   order Order[]
   tokens JWTToken[]
 }
@@ -83,7 +83,7 @@ model ProductGroups{
 model Reservation{
   id Int @id @default(autoincrement())
   isReserved Boolean @default(false)
-  
+  tableNumber Int
   reservationDate DateTime? @default(now())
 
   user User[]

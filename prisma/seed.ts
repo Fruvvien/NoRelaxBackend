@@ -1,6 +1,6 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
-
+  //drinks seed!!
 /* const products = [
   { name: 'Staropramen csapolt', unit: '5 dl', price: 890 },
   { name: 'Borsodi csapolt', unit: '5 dl', price: 690 },
@@ -79,50 +79,37 @@ async function main() {
   }
 } */
 
-  /* const foods = [
-    { name: 'Melegszendvics toast kenyérből', unit: '1 adag', price: 500 },
-    { name: 'Melegszendvics baguette', unit: '1 adag', price: 850 },
-    { name: 'Sült krumpli', unit: '1 adag', price: 700 },
-    { name: 'Sült kolbász', unit: '1 adag', price: 1000 },
-    { name: 'Sült krumpli és sült kolbász', unit: '1 adag', price: 1500 },
-    { name: 'Zsíros kenyér', unit: '1 adag', price: 200 },
-    { name: 'Sós mogyoró', unit: '1 adag', price: 400 },
-    { name: 'Chips', unit: '1 adag', price: 650 },
-    { name: 'Popcorn', unit: '1 adag', price: 400 }
-  ];
-  async function main() {
-    for (const product of foods) {
-      await prisma.products.create({
-        data: {
-          productName: product.name,
-          unit: product.unit,
-          price: product.price,
-          productGroup: {
-            connect:{
-              id: 2
-            }
+//foods seed!!
+
+/* const foods = [
+  { name: 'Melegszendvics toast kenyérből', unit: '1 adag', price: 500 },
+  { name: 'Melegszendvics baguette', unit: '1 adag', price: 850 },
+  { name: 'Sült krumpli', unit: '1 adag', price: 700 },
+  { name: 'Sült kolbász', unit: '1 adag', price: 1000 },
+  { name: 'Sült krumpli és sült kolbász', unit: '1 adag', price: 1500 },
+  { name: 'Zsíros kenyér', unit: '1 adag', price: 200 },
+  { name: 'Sós mogyoró', unit: '1 adag', price: 400 },
+  { name: 'Chips', unit: '1 adag', price: 650 },
+  { name: 'Popcorn', unit: '1 adag', price: 400 }
+];
+async function main() {
+  for (const product of foods) {
+    await prisma.products.create({
+      data: {
+        productName: product.name,
+        unit: product.unit,
+        price: product.price,
+        productGroup: {
+          connect:{
+            id: 2
           }
-        },
-      });
-    }
-  } */
+        }
+      },
+    });
+  }
+} */
 
 
-//reservation
-/* async function main() {
- for (let index = 1; index <= 5; index++) {
-  await prisma.reservation.create({
-    data:{
-      id: index,
-      reservationDate: new Date(),
-      tableNumber: index
-    }
-  });
-  
- }
-  
-  
-}  */
 
 main()
   .then(async () => {

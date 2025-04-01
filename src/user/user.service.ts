@@ -16,7 +16,7 @@ export class UserService {
         data:{
           ...createUserDto, 
           password: hashedPassw
-        } 
+        }
       });  
       
       return newUser;

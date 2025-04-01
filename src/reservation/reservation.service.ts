@@ -1,4 +1,4 @@
-import {  Injectable } from '@nestjs/common';
+import {  BadRequestException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -8,21 +8,41 @@ export class ReservationService {
   constructor(private db: PrismaService){}
 
   async create(createReservationDto: CreateReservationDto) {
-    return await this.db.reservation.create({
-      data:{
-        isReserved: createReservationDto.isReserved,
-        reservationDate: createReservationDto.reservationDate,
-        tableNumber: createReservationDto.tableNumber,
-        user:{
-          connect:{
-            id:  +createReservationDto.userId
+      const currentDate = new Date();
+      const dateTime = new Date(createReservationDto.reservationDate);
+      if(currentDate.getFullYear() <= dateTime!.getFullYear() &&  currentDate.getMonth() <= dateTime!.getMonth() && currentDate.getDay() <= dateTime!.getDay()){
+        const response= await this.db.reservation.create({
+          data:{
+            isReserved: createReservationDto.isReserved,
+            reservationDate: createReservationDto.reservationDate,
+            tableNumber: createReservationDto.tableNumber,
+            user:{
+              connect:{
+                id:  +createReservationDto.userId
+              }
+            }
+          },
+          include:{
+            user: true
           }
+        })
+  
+        if(response){
+          return response
         }
-      },
-      include:{
-        user: true
+        else{
+          return new BadRequestException()
+        }
       }
-    })
+      else{
+        return new BadRequestException()
+      }
+
+     
+    
+      
+    
+    
     
   }
 

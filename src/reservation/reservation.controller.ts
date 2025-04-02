@@ -22,8 +22,8 @@ export class ReservationController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.reservationService.findOne(+id);
+  async findManyWithId(@Param('id') id: string) {
+    return await this.reservationService.findMany(+id);
   }
 
   @UseGuards(JwtAuthGuard)

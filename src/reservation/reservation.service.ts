@@ -50,10 +50,10 @@ export class ReservationService {
     return await this.db.reservation.findMany();
   }
 
-  async findOne(id: number) {
-    return await this.db.reservation.findUnique({
+  async findMany(id: number) {
+    return await this.db.reservation.findMany({
       where:{
-        id: id
+        userId: id
       }
     }) ;
   }

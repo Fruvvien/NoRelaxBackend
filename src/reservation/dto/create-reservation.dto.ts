@@ -32,4 +32,7 @@ export class CreateReservationDto {
 
     @IsNumber()
     tableNumber: number
+    
+    @IsNumber()
+    seats: number
 }

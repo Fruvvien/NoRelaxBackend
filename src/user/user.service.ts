@@ -17,8 +17,7 @@ export class UserService {
           ...createUserDto, 
           password: hashedPassw
         }
-      });  
-      
+      });
       return newUser;
 
   }
@@ -44,7 +43,11 @@ export class UserService {
     return `This action updates a #${id} user`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    return await this.db.user.delete({
+      where:{
+        id:id
+      }
+    });
   }
 }

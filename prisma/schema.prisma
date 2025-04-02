@@ -85,6 +85,7 @@ model Reservation{
   isReserved Boolean @default(false)
   tableNumber Int
   reservationDate DateTime? @default(now())
+  seats Int
 
   user User? @relation(fields: [userId], references: [id])
   userId Int?

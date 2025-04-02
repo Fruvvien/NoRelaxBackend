@@ -16,6 +16,7 @@ export class ReservationService {
             isReserved: createReservationDto.isReserved,
             reservationDate: createReservationDto.reservationDate,
             tableNumber: createReservationDto.tableNumber,
+            seats: createReservationDto.seats,
             user:{
               connect:{
                 id:  +createReservationDto.userId
@@ -83,7 +84,12 @@ export class ReservationService {
   
   
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+  async remove(id: number, userId: number) {
+    return await this.db.reservation.delete({
+      where:{
+        id:id,
+        userId: +userId
+      }
+    });
   }
 }

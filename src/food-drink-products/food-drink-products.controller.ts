@@ -4,7 +4,7 @@ import { CreateFoodDrinkProductDto } from './dto/create-food-drink-product.dto';
 import { UpdateFoodDrinkProductDto } from './dto/update-food-drink-product.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
-@Controller('auth')
+@Controller()
 export class FoodDrinkProductsController {
   constructor(private readonly foodDrinkProductsService: FoodDrinkProductsService) {}
 
@@ -19,7 +19,12 @@ export class FoodDrinkProductsController {
         throw new BadRequestException("Érvénytelen adat")
       }
     } */
-  
+
+    @Get('foodDrinkProducts')
+    async findAllProducts(){
+      return await this.foodDrinkProductsService.findAllProducts() 
+    }
+      
     @Post('foodDrinkProducts')
     findAll(@Body() CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
       return this.foodDrinkProductsService.findAll(CreateFoodDrinkProductDto);

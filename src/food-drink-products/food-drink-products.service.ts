@@ -21,6 +21,11 @@ export class FoodDrinkProductsService {
       }
     })
   } */
+
+
+  async findAllProducts(){
+    return await this.db.products.findMany();
+  }
  
   async findAll(CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
     const response = await this.db.productGroups.findFirst({

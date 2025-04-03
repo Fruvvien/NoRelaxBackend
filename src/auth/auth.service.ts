@@ -14,11 +14,20 @@ export class AuthService {
   async login(user: any){
          
     try {
-     const payload = { id: user.id, email: user.email };
+     const payload = { id: user.id, email: user.email,  };
+      const role = await this.db.user.findUnique({
+        where:{
+          id: user.id
+        }
+
+      })
+
       const createdToken = await this.db.jWTToken.create({
         data: {
           token:  await this.jwtService.signAsync(payload),
-          user: { connect: { id: user.id } }
+          user: { connect: { id: user.id } },
+          accountType: role.accounType
+
         }
       });
       return createdToken;

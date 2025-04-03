@@ -24,7 +24,7 @@ export class ProductsService {
       
   }
 
-  findAll() {
+/*   findAll() {
     return `This action returns all products`;
   }
 
@@ -38,5 +38,5 @@ export class ProductsService {
 
   remove(id: number) {
     return `This action removes a #${id} product`;
-  }
+  } */
 }

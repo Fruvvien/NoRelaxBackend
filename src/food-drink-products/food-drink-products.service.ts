@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateFoodDrinkProductDto } from './dto/create-food-drink-product.dto';
 import { UpdateFoodDrinkProductDto } from './dto/update-food-drink-product.dto';
 import { PrismaService } from 'src/prisma.service';
 
@@ -27,10 +26,10 @@ export class FoodDrinkProductsService {
     return await this.db.products.findMany();
   }
  
-  async findAll(CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
+  async findAll(productGroup: string) {
     const response = await this.db.productGroups.findFirst({
       where:{
-        groupName: CreateFoodDrinkProductDto.productGroupName
+        groupName: productGroup
       }
     })
     

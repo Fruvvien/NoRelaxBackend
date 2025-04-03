@@ -15,7 +15,7 @@ export class OrdersController {
     return this.ordersService.create(createOrderDto);
   }
 
-  @Get()
+ /*  @Get()
   findAll() {
     return this.ordersService.findAll();
   }
@@ -33,5 +33,5 @@ export class OrdersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);
-  }
+  } */
 }

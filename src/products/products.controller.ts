@@ -6,7 +6,7 @@ import { UpdateProductDto } from './dto/update-product.dto';
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
-  @Get()
+ /*  @Get()
   findAll() {
     return this.productsService.findAll();
   }
@@ -24,5 +24,5 @@ export class ProductsController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productsService.remove(+id);
-  }
+  } */
 }

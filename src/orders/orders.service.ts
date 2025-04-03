@@ -33,7 +33,7 @@ export class OrdersService {
 
   }
 
-  findAll() {
+ /*  findAll() {
     return `This action returns all orders`;
   }
 
@@ -47,5 +47,5 @@ export class OrdersService {
 
   remove(id: number) {
     return `This action removes a #${id} order`;
-  }
+  } */
 }

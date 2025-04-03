@@ -17,8 +17,4 @@ export class CreateFoodDrinkProductDto {
     @IsNumber()
     @IsOptional()
     productGroupId: number;
-
-    @IsString()
-    @IsOptional()
-    productGroupName: string;
 }

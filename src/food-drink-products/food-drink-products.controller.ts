@@ -19,15 +19,17 @@ export class FoodDrinkProductsController {
         throw new BadRequestException("Érvénytelen adat")
       }
     } */
-
+   
     @Get('foodDrinkProducts')
     async findAllProducts(){
       return await this.foodDrinkProductsService.findAllProducts() 
+     
     }
-      
-    @Post('foodDrinkProducts')
-    findAll(@Body() CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
-      return this.foodDrinkProductsService.findAll(CreateFoodDrinkProductDto);
+
+    @UseGuards(JwtAuthGuard)
+    @Get('foodDrinkProducts/:productGroup')
+    findAll(@Param('productGroup') productGroup: string) {
+      return this.foodDrinkProductsService.findAll(productGroup);
     }
   
     @UseGuards(JwtAuthGuard)

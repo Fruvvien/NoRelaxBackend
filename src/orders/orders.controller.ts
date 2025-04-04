@@ -11,7 +11,6 @@ export class OrdersController {
   @Post('orders')
   @UseGuards(JwtAuthGuard)
   create( @Body() createOrderDto: CreateOrderDto) {
-  
     return this.ordersService.create(createOrderDto);
   }
 

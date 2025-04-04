@@ -9,15 +9,16 @@ export class OrdersService {
   constructor(private db: PrismaService, private product: ProductsService){}
 
   async create(createOrderDto: CreateOrderDto) {
+    
     try{
       const order = await this.db.order.create({
         data: {
           user:{
             connect: {id: parseInt(createOrderDto.userId)}
           },
-          reservation: {
-            connect: {id : createOrderDto.reservationId || null}
-          },
+          reservation: createOrderDto.reservationId
+          ? { connect: { id: createOrderDto.reservationId } }
+          : undefined,
           fullPrice: createOrderDto.fullPrice,
         },
         include: {

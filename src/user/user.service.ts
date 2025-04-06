@@ -10,16 +10,28 @@ export class UserService {
 
   async create(createUserDto: CreateUserDto) {
     const hashedPassw = await bcrypt.hashSync(createUserDto.password,10);
-    
-    const newUser = await this.db.user.create(
-      {
-        data:{
-          ...createUserDto, 
-          password: hashedPassw
-        }
-      });
-      return newUser;
+    const accountIsActive = await this.db.user.findFirst({
+      where:{
+        email: createUserDto.email,
+        accountIsActive: true
+      }
+    }).catch(()=>{
+      return ""
+    })
 
+    if(accountIsActive){
+      return false
+    }
+    else{
+      const newUser = await this.db.user.create(
+        {
+          data:{
+            ...createUserDto, 
+            password: hashedPassw
+          }
+        });
+        return newUser;
+    }
   }
 
   findAll() {
@@ -39,15 +51,20 @@ export class UserService {
    
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
-  }
-
-  async remove(id: number) {
-    return await this.db.user.delete({
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    return await this.db.user.update({
       where:{
         id:id
+      },
+      data:{
+        ...updateUserDto,
+        accountIsActive: updateUserDto.accountIsActive,
       }
     });
+    
+  }
+
+  remove(id: number) {
+    return `This action delete a #${id} user` ;
   }
 }

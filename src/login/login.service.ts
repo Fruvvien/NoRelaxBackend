@@ -1,6 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { CreateLoginDto } from './dto/create-login.dto';
-import { UpdateLoginDto } from './dto/update-login.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
@@ -18,7 +16,8 @@ export class LoginService {
   findOneWithEmail(email: string){
     return this.db.user.findFirstOrThrow({
       where:{
-        email: email
+        email: email,
+        accountIsActive: true
       }
     });
   }

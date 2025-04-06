@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Put } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -110,9 +110,10 @@ export class UserController {
     type: 'number',
     example: 1
   })
+  @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.userService.update(+id, updateUserDto);
+  async update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
+    return await this.userService.update(+id, updateUserDto);
   }
 
   /**
@@ -127,9 +128,9 @@ export class UserController {
     type: 'number',
     example: 1
   })
-  @UseGuards(JwtAuthGuard)
+  
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return await this.userService.remove(+id);
+   remove(@Param('id') id: string) {
+    return  this.userService.remove(+id);
   }
 }

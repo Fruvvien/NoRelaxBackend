@@ -43,6 +43,10 @@ export class UserService {
       return this.db.user.findUnique({
         where: {
           id: id
+        },
+        include:{
+          reservation: true,
+          order: true
         }
       });
     }catch{

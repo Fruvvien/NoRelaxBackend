@@ -4,22 +4,23 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 
-@Controller()
+@Controller('orders')
 export class OrdersController {
   constructor(private readonly ordersService: OrdersService) {}
 
-  @Post('orders')
+  @Post()
   @UseGuards(JwtAuthGuard)
   create( @Body() createOrderDto: CreateOrderDto) {
     return this.ordersService.create(createOrderDto);
   }
 
- /*  @Get()
+  @UseGuards(JwtAuthGuard)
+  @Get()
   findAll() {
     return this.ordersService.findAll();
   }
 
-  @Get(':id')
+  /* @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
   }

@@ -9,6 +9,8 @@ export class OrdersService {
   constructor(private db: PrismaService, private product: ProductsService){}
 
   async create(createOrderDto: CreateOrderDto) {
+    console.log(createOrderDto.reservationId);
+    
     
     try{
       const order = await this.db.order.create({
@@ -16,9 +18,7 @@ export class OrdersService {
           user:{
             connect: {id: parseInt(createOrderDto.userId)}
           },
-          reservation: createOrderDto.reservationId
-          ? { connect: { id: createOrderDto.reservationId } }
-          : undefined,
+          reservation:  { connect: { id: createOrderDto.reservationId } },
           fullPrice: createOrderDto.fullPrice,
         },
         include: {
@@ -34,11 +34,11 @@ export class OrdersService {
 
   }
 
- /*  findAll() {
-    return `This action returns all orders`;
+  async findAll() {
+    return await this.db.order.findMany();
   }
 
-  findOne(id: number) {
+  /* findOne(id: number) {
     return `This action returns a #${id} order`;
   }
 

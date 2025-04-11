@@ -61,7 +61,7 @@ export class ReservationService {
 
   async update(id: number, updateReservationDto: UpdateReservationDto) {
      
-      /* return await this.db.reservation.update({
+      return await this.db.reservation.update({
         where:{
           id: id
         },
@@ -78,7 +78,7 @@ export class ReservationService {
           user: true
         }
         
-      }) */
+      })
       
   }
   

@@ -20,7 +20,7 @@ export class OrdersController {
     return this.ordersService.findAll();
   }
 
-  /* @Get(':id')
+  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.ordersService.findOne(+id);
   }
@@ -33,5 +33,5 @@ export class OrdersController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.ordersService.remove(+id);
-  } */
+  }
 }

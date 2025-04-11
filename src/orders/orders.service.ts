@@ -38,15 +38,35 @@ export class OrdersService {
     return await this.db.order.findMany();
   }
 
-  /* findOne(id: number) {
-    return `This action returns a #${id} order`;
+  findOne(id: number) {
+    return this.db.order.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        orderitem: true,
+        reservation: true,
+        user: true,
+      }
+    });
   }
 
   update(id: number, updateOrderDto: UpdateOrderDto) {
-    return `This action updates a #${id} order`;
+    return this.db.order.update({
+      where: {
+        id: id
+      },
+      data:{
+        status: updateOrderDto.status,
+      }
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} order`;
-  } */
+    return this.db.order.delete({
+      where: {
+        id: id
+      }
+    });
+  }
 }

@@ -8,7 +8,7 @@ import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 export class FoodDrinkProductsController {
   constructor(private readonly foodDrinkProductsService: FoodDrinkProductsService) {}
 
-   /*  @UseGuards(JwtAuthGuard)
+    @UseGuards(JwtAuthGuard)
     @Post('foodDrinkProducts')
     create(@Body() CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
       try {
@@ -18,7 +18,7 @@ export class FoodDrinkProductsController {
       catch {
         throw new BadRequestException("Érvénytelen adat")
       }
-    } */
+    }
    
     @Get('foodDrinkProducts')
     async findAllProducts(){

@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { UpdateFoodDrinkProductDto } from './dto/update-food-drink-product.dto';
+import { CreateFoodDrinkProductDto } from './dto/create-food-drink-product.dto';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
 export class FoodDrinkProductsService {
   constructor ( private db: PrismaService){};
 
- /* create(CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
+ create(CreateFoodDrinkProductDto: CreateFoodDrinkProductDto) {
   return this.db.products.create({
       data: {
         productName: CreateFoodDrinkProductDto.productName,
@@ -19,7 +20,7 @@ export class FoodDrinkProductsService {
         }
       }
     })
-  } */
+  }
 
 
   async findAllProducts(){

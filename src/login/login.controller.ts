@@ -1,46 +1,45 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { LoginService } from './login.service';
-import { ApiParam } from '@nestjs/swagger';
+import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Login')
 @Controller('userLogin')
 export class LoginController {
   constructor(private readonly loginService: LoginService) {}
 
- /*  @Post()
-  create(@Body() createLoginDto: CreateLoginDto) {
-    return this.loginService.create(createLoginDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.loginService.findAll();
-  } */
-
-
-   /**
-     * Returns the data of a user with the given email
-     * 
-     * @param email The email of the user
-     * @returns 
-     */
-    @ApiParam({
-      name: 'email',
-      description: 'The email of the user to get',
-      type: 'string',
-      example: "asd2@gmail.com"
-    })
+  /**
+   * Returns the data of a user with the given email
+   * 
+   * @param email The email of the user
+   * @returns The user data
+   */
+  @ApiParam({
+    name: 'email',
+    description: 'The email of the user to retrieve',
+    type: 'string',
+    example: 'admin@gmail.com',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully retrieved the user data',
+    schema: {
+      example: {
+        id: 1,
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'admin@gmail.com',
+        accountType: 'user',
+        createdAt: '2021-09-29T06:30:00.000Z',
+        accountIsActive: true,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'User not found',
+  })
   @Get(':email')
   findOneWithEmail(@Param('email') email: string) {
     return this.loginService.findOneWithEmail(email);
   }
-
-  /* @Patch(':id')
-  update(@Param('id') id: string, @Body() updateLoginDto: UpdateLoginDto) {
-    return this.loginService.update(+id, updateLoginDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.loginService.remove(+id);
-  } */
 }

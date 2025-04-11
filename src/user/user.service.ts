@@ -67,8 +67,4 @@ export class UserService {
     });
     
   }
-
-  remove(id: number) {
-    return `This action delete a #${id} user` ;
-  }
 }

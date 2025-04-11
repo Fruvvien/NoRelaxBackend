@@ -1,64 +1,80 @@
-import {  Controller, HttpException, Post, UseGuards, Get, Req } from '@nestjs/common';
+import { Controller, HttpException, Post, UseGuards, Get, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LocalGuard } from './guards/local.guard';
 import { JwtAuthGuard } from './guards/jwt.guard';
-import { ApiBearerAuth,  ApiParam } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiResponse, ApiTags, ApiBody } from '@nestjs/swagger';
 
-
+@ApiTags('Auth') 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService){}
+  constructor(private authService: AuthService) {}
 
-   /**
-    * returns the token of the user
-    * 
-    * @param req email and password of the user
-    * @returns returns the token of the user
-    */
-  @ApiParam({
-    name: 'login',
-    description: 'The login of the user',
-    type: 'string',
-    example: {
-      "email":"ogabi2004@gmail.com",
-      "password":"asdasd123"
-    }
-  })
+  /**
+   * Returns the token of the user
+   * 
+   * @param req email and password of the user
+   * @returns The token of the user
+   */
   @Post('login')
   @UseGuards(LocalGuard)
-  login(@Req() req: any){
+  @ApiBody({
+    description: 'The login credentials of the user',
+    schema: {
+      example: {
+        email: 'ogabi2004@gmail.com',
+        password: 'asdasd123',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully logged in',
+    schema: {
+      example: {
+        accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Invalid credentials',
+  })
+  login(@Req() req: any) {
     const user = this.authService.login(req.user);
-    if(!user){
+    if (!user) {
       throw new HttpException('Invalid Credentials', 401);
-      
     }
     return user;
   }
 
-
   /**
-   * Check the jwt token of the user
+   * Check the JWT token of the user
    * 
-   * @param req email, password and token of the user
-   * @returns 200
+   * @param req The request containing the JWT token
+   * @returns The user data
    */
-  @ApiParam({
-    name: 'status',
-    description: 'The status of the user',
-    type: 'string',
-    example: {
-      email:"ogabi2004@gmail.com",
-      password: "asdasd123",
-      token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImVtYWlsIjoib2dhYmkyMDA0QGdtYWlsLmNvbSIsImlhdCI6MTczOTI5ODcxOCwiZXhwIjoxNzM5MzAyMzE4fQ.-WACuMv4yxLFElHVv_g_GRab9vvqvIaaHWQNUCkZn68"
-    }
-  })
-  @ApiBearerAuth()
   @Get('status')
   @UseGuards(JwtAuthGuard)
-  status(@Req() req: any){
-    console.log("inside authcontroller status method");
+  @ApiBearerAuth()
+  @ApiResponse({
+    status: 200,
+    description: 'Successfully validated the token',
+    schema: {
+      example: {
+        id: 23,
+        email: 'ogabi2004@gmail.com',
+        iat: 1739298718,
+        exp: 1739302318,
+      },
+    },
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Unauthorized. Invalid or missing token.',
+  })
+  status(@Req() req: any) {
+    console.log('Inside authcontroller status method');
     console.log(req.user);
-    
+    return req.user;
   }
 }
-

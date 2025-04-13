@@ -1,3 +1,4 @@
+#Fejlesztői dokumentáció a github wiki-n belül lesz megtalálható
 # NestJs + Prisma
 
 # Telepítési útmutató

@@ -1,4 +1,4 @@
-# Fejlesztői dokumentáció a github wiki-n belül lesz megtalálható
+# Fejlesztői dokumentáció a localhost:3000/apidoc url-n lesz megtaláható.
 # NestJs + Prisma
 
 # Telepítési útmutató

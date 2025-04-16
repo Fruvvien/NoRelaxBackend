@@ -30,13 +30,23 @@ export class OrderItemController {
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  @ApiOperation({ summary: 'Retrieve a specific order item by ID' })
-  @ApiParam({ name: 'id', description: 'ID of the order item', type: String })
-  @ApiResponse({ status: 200, description: 'Order item found.' })
-  @ApiResponse({ status: 404, description: 'Order item not found.' })
-  findOne(@Param('id') id: string) {
-    return this.orderItemService.findOne(+id);
+  @ApiOperation({ summary: 'Retrieve order items by order ID' })
+  @ApiParam({ name: 'id', description: 'ID of the order', type: String })
+  @ApiResponse({ status: 200, description: 'Order items found'})
+  @ApiResponse({ status: 404, description: 'Order items not found'})
+  findAllByOrderId(@Param('id') id: string) {
+    return this.orderItemService.findallByOrderId(+id);
   }
+
+  // @UseGuards(JwtAuthGuard)
+  // @Get(':id')
+  // @ApiOperation({ summary: 'Retrieve a specific order item by ID' })
+  // @ApiParam({ name: 'id', description: 'ID of the order item', type: String })
+  // @ApiResponse({ status: 200, description: 'Order item found.' })
+  // @ApiResponse({ status: 404, description: 'Order item not found.' })
+  // findOne(@Param('id') id: string) {
+  //   return this.orderItemService.findOne(+id);
+  // }
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')

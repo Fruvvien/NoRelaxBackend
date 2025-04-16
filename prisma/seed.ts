@@ -1,7 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
   //drinks seed!!
-/* const products = [
+ /*const products = [
   { name: 'Staropramen csapolt', unit: '5 dl', price: 890 },
   { name: 'Borsodi csapolt', unit: '5 dl', price: 690 },
   { name: 'Mort Subite csapolt', unit: '5 dl', price: 1490 },
@@ -81,7 +81,7 @@ async function main() {
 
 //foods seed!!
 
-/* const foods = [
+ /*const foods = [
   { name: 'Melegszendvics toast kenyérből', unit: '1 adag', price: 500 },
   { name: 'Melegszendvics baguette', unit: '1 adag', price: 850 },
   { name: 'Sült krumpli', unit: '1 adag', price: 700 },

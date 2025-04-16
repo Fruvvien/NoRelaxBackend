@@ -27,6 +27,14 @@ export class OrderItemService {
     return this.db.orderitem.findMany();
   }
 
+  findallByOrderId(id: number){
+    return this.db.orderitem.findMany({
+      where: {
+        orderId: id
+      }
+    })
+  }
+
   findOne(id: number) {
     return this.db.orderitem.findUnique({
       where: {

@@ -86,7 +86,7 @@ export class FoodDrinkProductsController {
    * @param productGroup The name of the product group
    * @returns An array of products in the specified group
    */
-  @UseGuards(JwtAuthGuard)
+ 
   @ApiBearerAuth()
   @Get(':productGroup')
   @ApiParam({

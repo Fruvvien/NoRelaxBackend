@@ -9,25 +9,36 @@ export class OrdersService {
   constructor(private db: PrismaService, private product: ProductsService){}
 
   async create(createOrderDto: CreateOrderDto) {
+    console.log(createOrderDto);
+    
     console.log(createOrderDto.reservationId);
     
     
-    try{
-      const order = await this.db.order.create({
-        data: {
-          user:{
-            connect: {id: parseInt(createOrderDto.userId)}
-          },
-          reservation:  { connect: { id: createOrderDto.reservationId } },
-          fullPrice: createOrderDto.fullPrice,
+    try {
+      const orderData: any = {
+        user: {
+          connect: { id: parseInt(createOrderDto.userId) },
         },
+        fullPrice: createOrderDto.fullPrice,
+        
+      };
+  
+      
+      if (createOrderDto.reservationId) {
+        orderData.reservation = { connect: { id: createOrderDto.reservationId } };
+      }
+  
+      const order = await this.db.order.create({
+        data: orderData,
         include: {
           orderitem: true,
-        }
+        },
       });
+  
       await this.product.create(createOrderDto.order, order.id);
       return JSON.stringify("Sikeres rendelés");
-    }catch(e){
+    } catch (e) {
+      console.log(e); 
       return JSON.stringify(e);
     }
     

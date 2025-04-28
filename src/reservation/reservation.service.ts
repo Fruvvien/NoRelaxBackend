@@ -2,10 +2,31 @@ import {  BadRequestException, Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma.service';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class ReservationService {
   constructor(private db: PrismaService){}
+
+  @Cron('0 0 * * *') 
+  async deleteExpiredReservations() {
+    const currentDate = new Date();
+    console.log(currentDate);
+    try {
+        await this.db.reservation.deleteMany({
+        where: {
+          reservationDate: {
+            lt: currentDate, 
+          },
+        },
+      });
+     
+      
+      console.log("lejárt foglalás törölve.");
+    } catch (error) {
+      console.error('Hiba történt a lejárt foglalások törlésekor:', error);
+    }
+  }
 
   async create(createReservationDto: CreateReservationDto) {
       const currentDate = new Date();

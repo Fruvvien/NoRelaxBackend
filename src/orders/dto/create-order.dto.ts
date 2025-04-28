@@ -46,5 +46,5 @@ export class CreateOrderDto {
     description: 'The reservation ID associated with the order',
     example: 123,
   })
-  reservationId: number;
+  reservationId: number | null;
 }

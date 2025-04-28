@@ -9,9 +9,10 @@ import { ProductsModule } from './products/products.module';
 import { FoodDrinkProductsModule } from './food-drink-products/food-drink-products.module';
 import { ReservationModule } from './reservation/reservation.module';
 import { OrderItemModule } from './order-item/order-item.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
-  imports: [UserModule, AuthModule, LoginModule, OrdersModule, ProductsModule, FoodDrinkProductsModule, ReservationModule, OrderItemModule],
+  imports: [UserModule, AuthModule, LoginModule, OrdersModule, ProductsModule, FoodDrinkProductsModule, ReservationModule, OrderItemModule, ScheduleModule.forRoot(),],
   controllers: [AppController],
   providers: [AppService],
 })

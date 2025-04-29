@@ -1,6 +1,16 @@
 # Fejlesztői dokumentáció a localhost:3000/apidoc url-n lesz megtaláható.
 # NestJs + Prisma
 
+# Felhasznált technológiák
+- NestJS
+- Prisma
+- TypeScript
+- bcrypt
+- REST API
+- MySQL
+- Cron
+- JWT
+
 # Telepítési útmutató
 
 ## Követelmények

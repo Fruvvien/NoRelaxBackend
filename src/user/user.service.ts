@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -56,15 +56,21 @@ export class UserService {
   }
 
   async update(id: number, updateUserDto: UpdateUserDto) {
-    return await this.db.user.update({
-      where:{
-        id:id
-      },
-      data:{
-        ...updateUserDto,
-        accountIsActive: updateUserDto.accountIsActive,
-      }
-    });
+    try{
+      return await this.db.user.update({
+        where:{
+          id:id
+        },
+        data:{
+          ...updateUserDto,
+          accountIsActive: updateUserDto.accountIsActive,
+        }
+      });
+    }
+    catch{
+      throw new NotFoundException('User not found')
+    }
+   
     
   }
 }

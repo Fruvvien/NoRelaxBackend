@@ -1,4 +1,4 @@
-import {  BadRequestException, Injectable } from '@nestjs/common';
+import {  BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -106,11 +106,17 @@ export class ReservationService {
   
 
   async remove(id: number, userId: number) {
-    return await this.db.reservation.delete({
-      where:{
-        id:id,
-        userId: +userId
-      }
-    });
+    try{
+      return await this.db.reservation.delete({
+        where:{
+          id:id,
+          userId: +userId
+        }
+      });
+    }
+    catch{
+      throw new NotFoundException('Reservation not found')
+    }
+ 
   }
 }

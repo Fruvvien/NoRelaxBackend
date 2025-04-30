@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { PrismaService } from 'src/prisma.service';
@@ -38,6 +38,7 @@ export class OrdersService {
       await this.product.create(createOrderDto.order, order.id);
       return JSON.stringify("Sikeres rendelés");
     } catch (e) {
+    
       console.log(e); 
       return JSON.stringify(e);
     }

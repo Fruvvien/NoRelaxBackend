@@ -1,4 +1,4 @@
-(Fejlesztői dokumentáció) [localhost:3000/apidoc].
+[Fejlesztői dokumentáció](localhost:3000/apidoc).
 # NestJs + Prisma
 
 # Felhasznált technológiák

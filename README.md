@@ -1,4 +1,4 @@
-# Fejlesztői dokumentáció a localhost:3000/apidoc url-n lesz megtaláható.
+# Fejlesztői dokumentáció url: localhost:3000/apidoc
 # NestJs + Prisma
 
 # Felhasznált technológiák
